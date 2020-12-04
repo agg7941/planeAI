@@ -68,7 +68,7 @@ def main(_argv):
 
     plane_classes = [[0]*int(nums[0])]
     plane_scores = [[0]*int(nums[0])]
-    outputs = [[""]]
+    outputs = [[""]*int(nums[0])]
 
     for i in range(nums[0]):
         imgc = Image.open(FLAGS.image)
@@ -97,10 +97,10 @@ def main(_argv):
                                            np.array(bounds)))
         outputs[0][i] = str(np.array(scores[0][i])) + " " + str(np.array(plane_scores[0][i] / 100))
 
-        img = cv2.cvtColor(img_raw.numpy(), cv2.COLOR_RGB2BGR)
-        img = draw_outputs(img, (boxes, outputs, plane_classes, nums), train_ds.class_names)
-        cv2.imwrite(FLAGS.output, img)
-        logging.info('output saved to: {}'.format(FLAGS.output))
+    img = cv2.cvtColor(img_raw.numpy(), cv2.COLOR_RGB2BGR)
+    img = draw_outputs(img, (boxes, outputs, plane_classes, nums), train_ds.class_names)
+    cv2.imwrite(FLAGS.output, img)
+    logging.info('output saved to: {}'.format(FLAGS.output))
 
 
 if __name__ == '__main__':
